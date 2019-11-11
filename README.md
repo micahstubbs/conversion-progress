@@ -2,11 +2,16 @@
 
 A small NodeJS script to measure the progress of converting a project from one set of filenames to another.
 
+I wrote this when I wanted to know how far along I am converting from React Javascript's `[".js",".jsx"]` file extensions to TypeScript's [".ts",".tsx"] file extensions.
+
+That said, this script should be generally useful for other kinds of file-extension-changing project conversions as well, if you modify `sourceExts` and
+`targetExts` arrays in [./index.js](./index.js) to match your project goals.
+
 ## usage
 
 ```bash
 node index.js
-measuring progress converting [".js",".jsx"] to [".ts",".tsx"]
+measuring progress converting to [".ts",".tsx"]
 7 [".js",".jsx"] files
 5 [".ts",".tsx"] files
 42% converted
@@ -28,3 +33,9 @@ yarn
 // measure conversion progress
 node index.js
 ```
+
+## roadmap
+
+- packaging & publishing to npm
+- fancy progress bar in the terminal
+- web UI with tree map showing conversion progress by directory
