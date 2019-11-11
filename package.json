@@ -1,0 +1,9 @@
+{
+  "name": "typescript-conversion-progress",
+  "version": "1.0.0",
+  "description": "measure your progress converting a JavaScript project to TypeScript",
+  "main": "index.js",
+  "author": "micahstubbs <micah.stubbs@gmail.com>",
+  "license": "Apache-2.0",
+  "private": false
+}
