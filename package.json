@@ -5,5 +5,8 @@
   "main": "index.js",
   "author": "micahstubbs <micah.stubbs@gmail.com>",
   "license": "Apache-2.0",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "jsonfile": "^5.0.0"
+  }
 }
