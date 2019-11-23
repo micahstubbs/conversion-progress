@@ -1,8 +1,6 @@
-import { execSync } from 'child_process'
+import runGitCommand from '../runGitCommand/index.js'
 
-const gitCommand = "git rev-parse HEAD"
-
-export default function getCommitHash() {
-  return execSync(gitCommand).toString().trim();
+export default function() {
+  const getCurrentCommitHash = 'git rev-parse HEAD'
+  return runGitCommand(getCurrentCommitHash)
 }
-
