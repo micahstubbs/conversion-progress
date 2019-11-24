@@ -1,5 +1,6 @@
 import getConversionProgress from '../index.js'
 import getCommitList from '../getCommitList/index.js'
+import simpleGit from '../node_modules/simple-git/promise.js'
 
 export default async function(projectDir, sourceExts, targetExts) {
   // get the list of commits in the project
@@ -8,6 +9,9 @@ export default async function(projectDir, sourceExts, targetExts) {
   const result = []
 
   let zeroProgressCounter = 0
+
+  // set the target project directory to master
+  simpleGit(projectDir).checkout('master')
 
   // loop over that list
   // get progress for each commit
@@ -31,6 +35,9 @@ export default async function(projectDir, sourceExts, targetExts) {
     // stop if the progress is 0 for two commits in a row
     if (zeroProgressCounter >= 2) return true
   })
+
+  // set the target project directory to master
+  simpleGit(projectDir).checkout('master')
 
   // as a side effect
   // write the result out to a csv file
