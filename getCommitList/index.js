@@ -1,26 +1,31 @@
+import path from 'path'
 import runGitCommand from '../runGitCommand/index.js'
 
-export default function() {
+export default function(projectDir) {
+  const __dirname = path.resolve(path.dirname(''))
+  const projectPath = path.join(__dirname, projectDir)
+
   const getCommitList = "git log --oneline | nl -v0 | sed 's/^ \+/&HEAD~/'"
-  const commitListString = runGitCommand(getCommitList)
+  const command = `cd ${projectPath} && ${getCommitList}`
+  const commitListString = runGitCommand(command)
 
   const lines = commitListString.split('\n')
   // console.log('lines', lines)
 
-  const parsedLines = lines.map((line) => parseLine(line))
+  const parsedLines = lines.map((line, i) => parseLine(line, i))
   // console.log('parsedLines', parsedLines)
   return parsedLines
 }
 
-function parseLine(line) {
+function parseLine(line, i) {
   let newLine = ''
   // console.log('line\n', line)
   
   newLine = line.trim()
   // console.log('newLine after first trim\n', newLine)
 
-  const index = newLine.slice(0,1) 
-  newLine = newLine.slice(1).trim()
+  const index = i
+  newLine = newLine.slice(String(i).length).trim()
   // console.log('newLine\n', newLine)
   // console.log('###### end parseLine #######\n')
   const hash = newLine.slice(0,7)
