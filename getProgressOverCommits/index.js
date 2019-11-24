@@ -1,8 +1,14 @@
-import getConversionProgress from '../index.js'
-import getCommitList from '../getCommitList/index.js'
+import fs from 'fs'
+import path from 'path'
 import simpleGit from '../node_modules/simple-git/promise.js'
 
+import getConversionProgress from '../index.js'
+import getCommitList from '../getCommitList/index.js'
+import writeCsv from '../writeCsv.js'
+
 export default async function(projectDir, sourceExts, targetExts) {
+  const __dirname = path.resolve(path.dirname(''))
+
   // get the list of commits in the project
   console.log(`getting commits for ${projectDir}`)
   const commitList = getCommitList(projectDir)
@@ -45,6 +51,12 @@ export default async function(projectDir, sourceExts, targetExts) {
 
   // as a side effect
   // write the result out to a csv file
+  const basename = path.basename(projectDir)
+  const filename = `${basename}.csv`
+  const dataDir = '../data'
+  if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir)
+  const outputFile = path.join(__dirname, dataDir, filename)
+  writeCsv(result, outputFile)
 
   // return the result
   return result
