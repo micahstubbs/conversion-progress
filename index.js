@@ -22,10 +22,10 @@ export default function getConversionProgress(
   simpleGit(projectDir)
     .checkout(commit)
     .exec(() => {
-      // const fileList = findInDir(projectDir)
+      const fileList = findInDir(projectDir)
       // writeJson(fileList, path.join(__dirname, 'fileList.json'))
 
-      // const filesByExtension = countFilesByExtension(fileList)
+      const filesByExtension = countFilesByExtension(fileList)
       // writeJson(filesByExtension, path.join(__dirname, 'filesByExtension.json'))
 
       conversionProgress = progress(
