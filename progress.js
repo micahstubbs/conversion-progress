@@ -26,11 +26,9 @@ export default function progress(filesByExt, sourceExts, targetExts, commit) {
   console.log(`${percentConverted}% converted`)
 
   return {
+    commit,
     sourceFileCount,
     targetFileCount,
-    percentConverted,
-    commit
+    percentConverted
   }
 }
-
-

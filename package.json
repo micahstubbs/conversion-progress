@@ -8,6 +8,7 @@
   "license": "Apache-2.0",
   "private": false,
   "dependencies": {
-    "jsonfile": "^5.0.0"
+    "jsonfile": "^5.0.0",
+    "simple-git": "^1.126.0"
   }
 }
