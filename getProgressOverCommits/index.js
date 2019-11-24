@@ -11,7 +11,8 @@ export default async function(projectDir, sourceExts, targetExts) {
   let zeroProgressCounter = 0
 
   // set the target project directory to master
-  simpleGit(projectDir).checkout('master')
+  const begin = await simpleGit(projectDir).checkout('master')
+  console.log('begin', begin)
 
   // loop over that list
   // get progress for each commit
@@ -35,12 +36,14 @@ export default async function(projectDir, sourceExts, targetExts) {
     console.log('zeroProgressCounter', zeroProgressCounter)
 
     // stop if the progress is 0 for two commits in a row
-    if (zeroProgressCounter >= 2) return true
+    if (zeroProgressCounter >= 2) break
   }
 
   // set the target project directory to master
-  simpleGit(projectDir).checkout('master')
+  const end = await simpleGit(projectDir).checkout('master')
+  console.log('end', end)
 
+  console.log(result)
   // as a side effect
   // write the result out to a csv file
 
