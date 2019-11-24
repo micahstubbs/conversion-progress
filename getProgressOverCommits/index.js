@@ -15,7 +15,8 @@ export default async function(projectDir, sourceExts, targetExts) {
 
   // loop over that list
   // get progress for each commit
-  commitList.some(async commit => {
+  for (let i = 0; i < commitList.length; i++) {
+    const commit = commitList[i]
     const progress = await getConversionProgress(
       projectDir,
       sourceExts,
@@ -31,10 +32,11 @@ export default async function(projectDir, sourceExts, targetExts) {
     // update the counter
     if (progress && progress.percentConverted === 0) zeroProgressCounter += 1
     else zeroProgressCounter = 0
+    console.log('zeroProgressCounter', zeroProgressCounter)
 
     // stop if the progress is 0 for two commits in a row
     if (zeroProgressCounter >= 2) return true
-  })
+  }
 
   // set the target project directory to master
   simpleGit(projectDir).checkout('master')
