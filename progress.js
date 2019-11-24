@@ -10,9 +10,12 @@ export default function progress(filesByExt, sourceExts, targetExts, commit) {
     if (filesByExt[ext]) targetFileCount += filesByExt[ext].count
   })
 
-  const proportionConverted =
-    targetFileCount / (sourceFileCount + targetFileCount)
-  const percentConverted = Math.round(proportionConverted * 100, 2)
+  let percentConverted = 0
+  if (targetFileCount > 0) {
+    const proportionConverted =
+      targetFileCount / (sourceFileCount + targetFileCount)
+    percentConverted = Math.round(proportionConverted * 100, 2)
+  }
 
   console.log(
     `measuring progress converting ${JSON.stringify(
