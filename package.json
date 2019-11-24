@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "measure your progress converting a JavaScript project to TypeScript",
   "main": "index.js",
+  "type": "module",
   "author": "micahstubbs <micah.stubbs@gmail.com>",
   "license": "Apache-2.0",
   "private": false,
   "dependencies": {
-    "jsonfile": "^5.0.0"
+    "fast-csv": "^3.4.0",
+    "jsonfile": "^5.0.0",
+    "simple-git": "^1.126.0"
   }
 }

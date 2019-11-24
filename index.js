@@ -1,16 +1,39 @@
-const findInDir = require('./findInDir.js')
-const writeJson = require('./writeJson.js')
-const countFilesByExtension = require('./countFilesByExtension.js')
-const progress = require('./progress.js')
+import path from 'path'
+import simpleGit from './node_modules/simple-git/promise.js'
 
-const projectDir = '../TypeScript-React-Conversion-Guide'
+import getCommitHash from './getCommitHash/index.js'
+import findInDir from './findInDir.js'
+import writeJson from './writeJson.js'
+import countFilesByExtension from './countFilesByExtension.js'
+import progress from './progress.js'
+import runShellCommand from './runShellCommand/index.js'
 
-const fileList = findInDir(projectDir)
-writeJson(fileList, 'fileList.json')
+export default function getConversionProgress(
+  projectDir,
+  sourceExts,
+  targetExts,
+  commit
+) {
+  const __dirname = path.resolve(path.dirname(''))
+  const projectPath = path.join(__dirname, projectDir)
+  let conversionProgress
 
-const filesByExtension = countFilesByExtension(fileList)
-writeJson(filesByExtension, 'filesByExtension.json')
+  // change to the specified commit
+  return simpleGit(projectDir)
+    .checkout(commit)
+    .then(() => {
+      const fileList = findInDir(projectDir)
+      // writeJson(fileList, path.join(__dirname, 'fileList.json'))
 
-const sourceExts = ['.js', '.jsx']
-const targetExts = ['.ts', '.tsx']
-const conversionProgress = progress(filesByExtension, sourceExts, targetExts)
+      const filesByExtension = countFilesByExtension(fileList)
+      // writeJson(filesByExtension, path.join(__dirname, 'filesByExtension.json'))
+
+      conversionProgress = progress(
+        filesByExtension,
+        sourceExts,
+        targetExts,
+        commit
+      )
+      return conversionProgress
+    })
+}
