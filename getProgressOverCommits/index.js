@@ -24,7 +24,7 @@ export default function(projectDir, sourceExts, targetExts) {
     })
 
     // update the counter
-    if (progress.percentConverted === 0) zeroProgressCounter += 1
+    if (progress && progress.percentConverted === 0) zeroProgressCounter += 1
     else zeroProgressCounter = 0
 
     // stop if the progress is 0 for two commits in a row

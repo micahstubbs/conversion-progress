@@ -1,4 +1,5 @@
 import path from 'path'
+import simpleGit from 'simple-git'
 
 import getCommitHash from './getCommitHash/index.js'
 import findInDir from './findInDir.js'
@@ -15,26 +16,27 @@ export default function getConversionProgress(
 ) {
   const __dirname = path.resolve(path.dirname(''))
   const projectPath = path.join(__dirname, projectDir)
+  let conversionProgress
 
   // change to the specified commit
-  if (commit) {
-    // TODO: figure out if this really does execute synchronously
-    runShellCommand(`cd ${projectPath}`)
-    runShellCommand(`git checkout ${commit}`)
-  }
+  simpleGit(projectDir)
+    .checkout(commit)
+    .exec(() => {
+      // const fileList = findInDir(projectDir)
+      // writeJson(fileList, path.join(__dirname, 'fileList.json'))
 
-  const fileList = findInDir(projectDir)
-  writeJson(fileList, path.join(__dirname, 'fileList.json'))
+      // const filesByExtension = countFilesByExtension(fileList)
+      // writeJson(filesByExtension, path.join(__dirname, 'filesByExtension.json'))
 
-  const filesByExtension = countFilesByExtension(fileList)
-  writeJson(filesByExtension, path.join(__dirname, 'filesByExtension.json'))
-
-  const conversionProgress = progress(
-    filesByExtension,
-    sourceExts,
-    targetExts,
-    commit
-  )
-
-  return conversionProgress
+      conversionProgress = progress(
+        filesByExtension,
+        sourceExts,
+        targetExts,
+        commit
+      )
+    })
+    .checkout('master')
+    .exec(() => {
+      return conversionProgress
+    })
 }
