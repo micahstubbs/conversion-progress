@@ -43,7 +43,6 @@ export default async function(projectDir, sourceExts, targetExts) {
   const end = await simpleGit(projectDir).checkout('master')
   console.log('end', end)
 
-  console.log(result)
   // as a side effect
   // write the result out to a csv file
 
