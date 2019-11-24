@@ -6,7 +6,7 @@ import writeJson from './writeJson.js'
 import countFilesByExtension from './countFilesByExtension.js'
 import progress from './progress.js'
 
-export default function getConversionProgress(projectDir, sourceExts, targetExts) {
+export default function getConversionProgress(projectDir, sourceExts, targetExts, commit) {
   const __dirname = path.resolve(path.dirname(''))
   const projectPath = path.join(__dirname, projectDir)
 
@@ -15,8 +15,6 @@ export default function getConversionProgress(projectDir, sourceExts, targetExts
 
   const filesByExtension = countFilesByExtension(fileList)
   writeJson(filesByExtension, path.join(__dirname, 'filesByExtension.json'))
-
-  const commit = getCommitHash()
 
   const conversionProgress = progress(
     filesByExtension,
