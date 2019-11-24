@@ -1,5 +1,5 @@
 import path from 'path'
-import simpleGit from 'simple-git'
+import simpleGit from './node_modules/simple-git/promise.js'
 
 import getCommitHash from './getCommitHash/index.js'
 import findInDir from './findInDir.js'
@@ -19,9 +19,9 @@ export default function getConversionProgress(
   let conversionProgress
 
   // change to the specified commit
-  simpleGit(projectDir)
+  return simpleGit(projectDir)
     .checkout(commit)
-    .exec(() => {
+    .then(() => {
       const fileList = findInDir(projectDir)
       // writeJson(fileList, path.join(__dirname, 'fileList.json'))
 
@@ -34,9 +34,6 @@ export default function getConversionProgress(
         targetExts,
         commit
       )
-    })
-    .checkout('master')
-    .exec(() => {
       return conversionProgress
     })
 }

@@ -1,7 +1,7 @@
 import getConversionProgress from '../index.js'
 import getCommitList from '../getCommitList/index.js'
 
-export default function(projectDir, sourceExts, targetExts) {
+export default async function(projectDir, sourceExts, targetExts) {
   // get the list of commits in the project
   console.log(`getting commits for ${projectDir}`)
   const commitList = getCommitList(projectDir)
@@ -11,13 +11,14 @@ export default function(projectDir, sourceExts, targetExts) {
 
   // loop over that list
   // get progress for each commit
-  commitList.some(commit => {
-    const progress = getConversionProgress(
+  commitList.some(async commit => {
+    const progress = await getConversionProgress(
       projectDir,
       sourceExts,
       targetExts,
       commit.hash
     )
+    console.log('progress', JSON.stringify(progress, null, 2))
     result.push({
       ...commit,
       ...progress
