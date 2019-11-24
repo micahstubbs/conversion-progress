@@ -1,8 +1,8 @@
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 
 // iterating on https://gist.github.com/kethinov/6658166
-function findInDir(dir, filter = /.*/, fileList = []) {
+export default function findInDir(dir, filter = /.*/, fileList = []) {
   const files = fs.readdirSync(dir)
 
   files.forEach(file => {
@@ -19,6 +19,5 @@ function findInDir(dir, filter = /.*/, fileList = []) {
   return fileList
 }
 
-module.exports = findInDir
 // Usage
 // findInDir('./public/audio/', /\.mp3$/)

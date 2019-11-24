@@ -1,6 +1,6 @@
-const path = require('path')
+import path from 'path'
 
-function countFilesByExtension(filelist = []) {
+export default function countFilesByExtension(filelist = []) {
   const resultsHash = {}
   filelist.forEach(file => {
     const ext = path.extname(file)
@@ -12,4 +12,3 @@ function countFilesByExtension(filelist = []) {
   return resultsHash
 }
 
-module.exports = countFilesByExtension

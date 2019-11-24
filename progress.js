@@ -1,4 +1,4 @@
-function progress(filesByExt, sourceExts, targetExts, commit) {
+export default function progress(filesByExt, sourceExts, targetExts, commit) {
   let sourceFileCount = 0
   let targetFileCount = 0
 
@@ -10,7 +10,8 @@ function progress(filesByExt, sourceExts, targetExts, commit) {
     if (filesByExt[ext]) targetFileCount += filesByExt[ext].count
   })
 
-  const proportionConverted = targetFileCount / (sourceFileCount + targetFileCount)
+  const proportionConverted =
+    targetFileCount / (sourceFileCount + targetFileCount)
   const percentConverted = Math.round(proportionConverted * 100, 2)
 
   console.log(
@@ -22,7 +23,7 @@ function progress(filesByExt, sourceExts, targetExts, commit) {
   console.log(`commit: ${commit}`)
   console.log(`${sourceFileCount} ${JSON.stringify(sourceExts)} files`)
   console.log(`${targetFileCount} ${JSON.stringify(targetExts)} files`)
-  console.log(`${percent}% converted`)
+  console.log(`${percentConverted}% converted`)
 
   return {
     sourceFileCount,
@@ -32,4 +33,4 @@ function progress(filesByExt, sourceExts, targetExts, commit) {
   }
 }
 
-module.exports = progress
+
