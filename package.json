@@ -10,6 +10,6 @@
   "dependencies": {
     "fast-csv": "^3.4.0",
     "jsonfile": "^5.0.0",
-    "simple-git": "^1.126.0"
+    "simple-git": "^3.16.0"
   }
 }
